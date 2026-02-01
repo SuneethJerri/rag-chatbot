@@ -1,0 +1,7 @@
+# configs/model.yaml
+llm:
+  model_path: /home/masaladosa/genai/llm/chatbot/models/tinyllama
+  load_in_4bit: true
+  batch_size: 4
+  max_new_tokens: 256
+

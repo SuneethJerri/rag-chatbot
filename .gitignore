@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+ml/
+
+# Models and weights
+models/
+*.safetensors
+*.bin
+
+# HuggingFace cache & locks
+.cache/
+huggingface/
+.locks/
+
+# FAISS index
+*.faiss
+
+# OS
+.DS_Store
+
