@@ -33,29 +33,29 @@ A modular, high-performance Retrieval Augmented Generation (RAG) chatbot with YA
 
 ## Architecture
 
-The system follows a two-phase design: offline indexing at startup and fast online querying per request. The `RAGPipeline` orchestrates `TextChunker`, `EmbeddingModel`, `FaissRetriever`, and `TinyLlamaLLM` components [1](#1-0) [2](#1-1) .
+The system follows a two-phase design: offline indexing at startup and fast online querying per request. The `RAGPipeline` orchestrates `TextChunker`, `EmbeddingModel`, `FaissRetriever`, and `TinyLlamaLLM` components.
 
 ### Offline Indexing
-- Documents are split into overlapping chunks via `TextChunker` [3](#1-2) .
-- Chunks are embedded by `EmbeddingModel` using `all-MiniLM-L6-v2` [4](#1-3) .
-- Embeddings are indexed in `FaissRetriever` with inner-product similarity [5](#1-4) .
+- Documents are split into overlapping chunks via `TextChunker` .
+- Chunks are embedded by `EmbeddingModel` using `all-MiniLM-L6-v2`.
+- Embeddings are indexed in `FaissRetriever` with inner-product similarity .
 
 ### Online Querying
-- Query is embedded and top-k chunks are retrieved [6](#1-5) .
-- Retrieved context and conversation history are assembled into a prompt [7](#1-6) .
-- `TinyLlamaLLM` generates the answer [8](#1-7) .
-- Conversation memory is updated with the turn [9](#1-8) .
+- Query is embedded and top-k chunks are retrieved.
+- Retrieved context and conversation history are assembled into a prompt .
+- `TinyLlamaLLM` generates the answer.
+- Conversation memory is updated with the turn.
 
 ## Configuration
 
 - `configs/model.yaml`: `model_path`, `max_new_tokens`, and quantization settings.
 - `configs/rag.yaml`: `chunk_size`, `chunk_overlap`, `top_k`.
 
-Both are loaded in `chat.py` and passed to `RAGPipeline` [10](#1-9) [11](#1-10) .
+Both are loaded in `chat.py` and passed to `RAGPipeline`.
 
 ## Optimization: 4-bit Quantization
 
-`benchmark.py` demonstrates 4-bit quantization using `BitsAndBytesConfig` with `load_in_4bit=True` and `bnb_4bit_quant_type="nf4"` [12](#1-11) . The config is passed to `AutoModelForCausalLM.from_pretrained` [13](#1-12) .
+`benchmark.py` demonstrates 4-bit quantization using `BitsAndBytesConfig` with `load_in_4bit=True` and `bnb_4bit_quant_type="nf4"` [12](#1-11) . The config is passed to `AutoModelForCausalLM.from_pretrained`.
 
 ### Benchmark Report
 
@@ -64,7 +64,7 @@ Running `python benchmark.py` measures and prints:
 - Generation time (ms)
 - Peak GPU memory (MB)
 
-It outputs a side-by-side summary for FP16 and 4-bit modes [14](#1-13) .
+It outputs a side-by-side summary for FP16 and 4-bit modes.
 
 ## Usage Examples
 
@@ -97,7 +97,7 @@ FP16     : (load_ms, gen_ms, mem_mb)
 
 - The chat interface currently runs FP16; quantization is demonstrated in `benchmark.py`.
 - The benchmark report is console output; redirect to a file or embed in README as needed.
-- Components are modular and single-responsibility for easy upgrades [15](#1-14) .
+- Components are modular and single-responsibility for easy upgrades.
 
 Wiki pages you might want to explore:
 - [Overview (SuneethJerri/rag-chatbot)](/wiki/SuneethJerri/rag-chatbot#1)
